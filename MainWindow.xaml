@@ -44,7 +44,7 @@
                 <Button x:Name="ClearSourceDir" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Delete" Padding="15 2" Click="ClearSourceDir_Click"/>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Save images directory">
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Save samples directory">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.2*"/>
@@ -84,7 +84,7 @@
                 <CheckBox x:Name="IsMarkupCreating" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="Write markup file (will be located in sample root folder)" TextWrapping="Wrap"/>
                 </CheckBox>
-                <Button x:Name="SaveSample" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save sample" Padding="15 5" Click="SaveSample_Click"/>
+                <Button x:Name="SaveSamples" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save sample" Padding="15 5" Click="SaveSample_Click"/>
             </Grid>
         </GroupBox>
     </Grid>
