@@ -1,0 +1,91 @@
+﻿<Window x:Class="HaarImageCropper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HaarImageCropper"
+        mc:Ignorable="d"
+        Title="ImageCropper" Height="700" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="5">
+            <Canvas x:Name="ImageCanvas" Width="{Binding ActualWidth, ElementName=Image}" Height="{Binding ActualHeight, ElementName=Image}" >
+                <Canvas.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Image x:Name="Image"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Canvas.Background>
+            </Canvas>
+        </ScrollViewer>
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="Source images directory">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="0.2*"/>
+                </Grid.RowDefinitions>
+                <TreeView x:Name="SourceImagesDir" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" SelectedItemChanged="SourceImagesDir_SelectedItemChanged"></TreeView>
+                <Button x:Name="OpenSourceDir" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Open" Padding="15 2" Click="OpenSourceDir_Click"/>
+                <Button x:Name="CloseSourceDir" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Close" Padding="15 2" Click="CloseSourceDir_Click"/>
+                <Button x:Name="ClearSourceDir" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Delete" Padding="15 2" Click="ClearSourceDir_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Save images directory">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.6*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Directory for samples:"></Label>
+                <TextBox x:Name="SaveSamplesDir" Grid.Row="1" Margin="5"></TextBox>
+                <Button x:Name="OpenSaveSamplesDir" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose" Padding="15 2" Click="OpenSaveSamplesDir_Click"></Button>
+                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="NOTE: folders for good and bad samples will be created automatically in selected folder" TextWrapping="Wrap"/>
+                </Label>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Grid.Column="1" Header="Save options">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <RadioButton x:Name="IsGoodSample" GroupName="SampleType" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Good sample"></RadioButton>
+                <RadioButton x:Name="IsBadSample" GroupName="SampleType" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Bad sample"></RadioButton>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Content="Number of objects:"></Label>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <RadioButton x:Name="NoObject" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 5 0" Content="0" IsChecked="{Binding IsChecked, ElementName=IsBadSample}"/>
+                    <RadioButton x:Name="OneObject" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 5 0" Content="1" IsChecked="True"/>
+                    <RadioButton x:Name="TwoObjects" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 5 0" Content="2"/>
+                    <RadioButton x:Name="ThreeObjects" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 0 0" Content="3"/>
+                </StackPanel>
+                <CheckBox x:Name="IsMarkupCreating" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Write markup file (will be located in sample root folder)" TextWrapping="Wrap"/>
+                </CheckBox>
+                <Button x:Name="SaveSample" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save sample" Padding="15 5" Click="SaveSample_Click"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
