@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HaarImageCropper"
         mc:Ignorable="d"
-        Title="ImageCropper" Height="700" Width="1000">
+        Title="ImageCropper" Height="800" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.32*"/>
+            <RowDefinition Height="0.33*"/>
+            <RowDefinition Height="0.35*"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="5">
             <Canvas x:Name="ImageCanvas" Width="{Binding ActualWidth, ElementName=Image}" Height="{Binding ActualHeight, ElementName=Image}" >
@@ -47,15 +47,25 @@
         <GroupBox Grid.Row="1" Grid.Column="1" Header="Save samples directory">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.25*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Directory for samples:"></Label>
                 <TextBox x:Name="SaveSamplesDir" Grid.Row="1" Margin="5"></TextBox>
                 <Button x:Name="OpenSaveSamplesDir" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose" Padding="15 2" Click="OpenSaveSamplesDir_Click"></Button>
-                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <Label Content="Good samples count:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <Label x:Name="GoodSamplesCount" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Label Content="Bad samples count:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <Label x:Name="BadSamplesCount" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                </StackPanel>
+                <Label Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0">
                     <TextBlock Text="NOTE: folders for good and bad samples will be created automatically in selected folder" TextWrapping="Wrap"/>
                 </Label>
             </Grid>
@@ -71,20 +81,21 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <RadioButton x:Name="IsGoodSample" GroupName="SampleType" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Good sample"></RadioButton>
                 <RadioButton x:Name="IsBadSample" GroupName="SampleType" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Bad sample"></RadioButton>
-                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Content="Number of objects:"></Label>
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <RadioButton x:Name="NoObject" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 5 0" Content="0" IsChecked="{Binding IsChecked, ElementName=IsBadSample}"/>
-                    <RadioButton x:Name="OneObject" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 5 0" Content="1" IsChecked="True"/>
-                    <RadioButton x:Name="TwoObjects" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 5 0" Content="2"/>
-                    <RadioButton x:Name="ThreeObjects" GroupName="ObjectsNum" VerticalAlignment="Center" Margin="5 0 0 0" Content="3"/>
-                </StackPanel>
-                <CheckBox x:Name="IsMarkupCreating" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="One sample must contain one object!"></Label>
+                <CheckBox x:Name="IsMarkupCreating" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0">
                     <TextBlock Text="Write markup file (will be located in sample root folder)" TextWrapping="Wrap"/>
                 </CheckBox>
-                <Button x:Name="SaveSamples" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save sample" Padding="15 5" Click="SaveSample_Click"/>
+                <CheckBox x:Name="IsInGrayscale" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Save sample in grayscale format" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                <Button x:Name="ConvertExistingGrayscale" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Convert existing samples to grayscale" Padding="15 5" Click="ConvertExistingGrayscale_Click"/>
+                <Button x:Name="RewriteMarkup" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Rewrite markups" Padding="15 5" Click="RewriteMarkup_Click"/>
+                <Button x:Name="RenameSamples" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Rename samples" Padding="15 5" Click="RenameSamples_Click"/>
+                <Button x:Name="SaveSamples" Grid.Row="6" Grid.Column="0"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save sample" Padding="15 5" Click="SaveSample_Click"/>
             </Grid>
         </GroupBox>
     </Grid>
